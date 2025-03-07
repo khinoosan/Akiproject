@@ -5,7 +5,7 @@
             <a class="nav-link" href="{{ route('dashboard.index') }}">データ一覧</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('dashboard.create') }}">データ登録</a>
+            <a class="nav-link" href="{{ route('register') }}">データ登録</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/inquiry">お問い合わせ</a>

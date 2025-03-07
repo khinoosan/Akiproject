@@ -7,7 +7,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/register', [DashboardController::class, 'create'])->name('register');
+Route::post('/register', [DashboardController::class, 'store'])->name('register.store');
 
+Route::get('/data', [DashboardController::class, 'index'])->name('data.index');
 
 Route::get('/edit/{id}', [DashboardController::class, 'edit'])->name('dashboard.edit');
 

@@ -14,13 +14,13 @@ class DashboardController extends Controller
 public function index()
 {
     $dataEntries = Data::all();
-    return view('dashboard.index', compact('dataEntries'));
+    return view('data.index', compact('dataEntries'));
 }
 
 
 public function create()
 {
-    return view('dashboard.register');
+    return view('data.register');
 }
 
 
@@ -34,14 +34,14 @@ public function store(Request $request)
 
     Data::create($validated);
 
-    return redirect()->route('dashboard.index')->with('success', 'データが登録されました');
+    return redirect()->route('data.index')->with('success', 'データが登録されました');
 }
 
 
 public function edit($id)
 {
     $dataEntry = Data::findOrFail($id);
-    return view('dashboard.edit', compact('dataEntry'));
+    return view('data.edit', compact('dataEntry'));
 }
 
 
@@ -58,7 +58,7 @@ public function update(Request $request, $id)
     $entry->update($validated);
 
  
-    return redirect()->route('dashboard.index');
+    return redirect()->route('data.index');
 }
 
 
@@ -68,7 +68,7 @@ public function destroy($id)
     $entry = Data::findOrFail($id);
     $entry->delete();
 
-    return redirect()->route('dashboard.index');
+    return redirect()->route('data.index');
 }
 
 }

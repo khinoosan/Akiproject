@@ -30,6 +30,6 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="{{ route('dashboard.create') }}" class="btn btn-primary mt-3">データ登録</a>
+        <a href="{{ route('register') }}" class="btn btn-primary mt-3">データ登録</a>
     </div>
 @endsection
