@@ -68,7 +68,7 @@ public function destroy($id)
     $entry = Data::findOrFail($id);
     $entry->delete();
 
-    return redirect()->route('data.index');
+    return redirect()->route('dashboard.index');
 }
 
 }
