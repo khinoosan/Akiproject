@@ -34,7 +34,7 @@ public function store(Request $request)
 
     Data::create($validated);
 
-    return redirect()->route('data.index')->with('success', 'データが登録されました');
+    return redirect()->route('dashboard.index')->with('success', 'データが登録されました');
 }
 
 
@@ -58,7 +58,7 @@ public function update(Request $request, $id)
     $entry->update($validated);
 
  
-    return redirect()->route('data.index');
+    return redirect()->route('dashboard.index');
 }
 
 
