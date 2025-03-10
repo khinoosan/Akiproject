@@ -1,44 +1,39 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ユーザー登録</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-9">
-                <h1 class="mt-4">ユーザー登録</h1>
+@extends('layouts.app')
 
-            
-                <div class="alert alert-danger" style="display: none;">
-                    <ul>
-                 
-                    </ul>
-                </div>
+@section('title', 'ユーザ登録')
 
-                <form action="#" method="POST">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">氏名 (Name):</label>
-                        <input type="text" id="name" name="name" required class="form-control">
-                    </div>
+@section('content')
+    <div class="container mt-4">
+        <h1>ユーザ登録</h1>
 
-                    <div class="mb-3">
-                        <label for="email" class="form-label">メールアドレス (Email):</label>
-                        <input type="email" id="email" name="email" required class="form-control">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password" class="form-label">パスワード (Password):</label>
-                        <input type="password" id="password" name="password" required class="form-control">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">登録</button>
-                </form>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
-        </div>
+        @endif
+
+        <form action="{{ route('user.register.store') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label for="name" class="form-label">氏名 </label>
+                <input type="text" id="name" name="name" required class="form-control" value="{{ old('name') }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">メールアドレス </label>
+                <input type="email" id="email" name="email" required class="form-control" value="{{ old('email') }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">パスワード </label>
+                <input type="password" id="password" name="password" required class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">登録</button>
+        </form>
     </div>
-</body>
-</html>
+@endsection

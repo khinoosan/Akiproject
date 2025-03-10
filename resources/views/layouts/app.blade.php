@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <title>@yield('title', 'アプリケーション')</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title', 'Laravel')</title>
 
-    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    @yield('styles')
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div style="display: flex; height: 100vh;">
+<body class="font-sans antialiased">
+    <div class="min-h-screen bg-gray-100">
+       
         @include('partials.sidebar')
 
-        <div class="content" style="margin-left: 250px; width: calc(100% - 250px);">
+     
+        <main style="margin-left: 250px;">
             @yield('content')
-        </div>
+        </main>
     </div>
 
-    @yield('scripts')
+  
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

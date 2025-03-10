@@ -6,27 +6,17 @@
 <div class="container mt-4">
     <h1>データ登録</h1>
 
- 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form action="{{ route('dashboard.store') }}" method="POST" onsubmit="return confirm('データを登録します。よろしいですか？');">
+    <form action="{{ route('dashboard.store') }}" method="POST" onsubmit="return confirm('データを登録します。よろしいですか？');" novalidate>
         @csrf
+       
         <div class="mb-3">
-            <label for="title" class="form-label">タイトル </label>
+            <label for="title" class="form-label">タイトル</label>
             <input type="text" id="title" name="title" required class="form-control" value="{{ old('title') }}">
             @error('title')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
-        
+
         <div class="mb-3">
             <label for="category" class="form-label">カテゴリ</label>
             <select id="category" name="category" required class="form-select">
