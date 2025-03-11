@@ -13,12 +13,15 @@ class AdminUserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
+// database/seeders/AdminUserSeeder.php
+public function run()
+{
+    if (!Admin::where('email', 'admin@mail.test')->exists()) {
         Admin::create([
-
             'email' => 'admin@mail.test',
             'password' => Hash::make('Password1234'),
         ]);
     }
 }
+
+    }

@@ -1,22 +1,21 @@
 <?php
 
+// database/seeders/UsersTableSeeder.php
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;  
+use App\Models\User;
 
 class UsersTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run()
     {
-        \App\Models\User::create([
-            'name' => 'Test User',
-            'email' => 'test@mail.test',
-            'password' => Hash::make('Password1234'),
-        ]);
+        User::firstOrCreate(
+            ['email' => 'test@mail.test'], // Check if this user already exists
+            [
+                'name' => 'Test User',
+                'password' => bcrypt('Password1234'), // Set the password
+            ]
+        );
     }
 }
