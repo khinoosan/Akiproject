@@ -17,9 +17,17 @@ class AuthMiddleware
     public function handle(Request $request, Closure $next, string $param = 'user'): Response
     {
 
-        $user = $request->user();
+        $params = explode("|", $param);
+
+        $user = Auth::guard('web')->user() ?? Auth::guard('admin')->user();
+
+    
+        if(!$user) {
+            return redirect('/login');
+        }  
 
         $role = '';
+
 
         if(Auth::guard('web')->check()) {
             $role = 'user';
@@ -28,15 +36,13 @@ class AuthMiddleware
         if(Auth::guard('admin')->check()) {
             $role = 'admin';
         }
-     
 
-        if($user &&  $param != $role ) {
-            return redirect( $param === 'admin' ? '/dashboard' : "/login" );
+        
+        if($user && !in_array($role, $params)  ) {
+            return redirect( "/dashboard" );
         }
 
-        if(!$user) {
-            return redirect( $param === 'admin' ? '/login' : "/login" );
-        }   
+         
         
 
 
