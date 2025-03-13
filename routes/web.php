@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,10 +17,15 @@ Route::get('/', function () {
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+
+    Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google-auth');
+    Route::get('/auth/google/call-back', [GoogleController::class, 'callbackGoogle']);
+    
     
     Route::get('/admin/login', [AdminController::class, 'index'])->name('admin.login');
     Route::post('/admin/login', [AdminController::class, 'login']);
 });
+
 
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
