@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+use App\Http\Requests\StoreDataRequest;
+use App\Http\Requests\UpdateDataRequest;
+
 class DashboardController extends Controller
 {
     public function index()
@@ -29,57 +32,24 @@ class DashboardController extends Controller
         return view('data.register');
     }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:20',
-            'category' => 'required|in:カテゴリ１,カテゴリ２,カテゴリ３',
-            'content' => 'required|string|max:200',
-        ], [
-            'title.required' => 'タイトルを入力してください',
-            'title.max' => 'タイトルは20文字以内で入力してください。',
-            'category.required' => 'カテゴリは不明な値です',
-            'content.required' => '本文を入力してください',
-            'content.max' => '本文は200文字以内で入力してください。',
-        ]);
 
-        Data::create($validated);
-        return redirect()->route('dashboard.index')->with('success', 'データが登録されました');
-    }
-    public function edit($id)
+    
+    public function store(StoreDataRequest $request)
     {
-        $dataEntry = Data::findOrFail($id);
-        return view('data.edit', compact('dataEntry'));
-    }
-    
-    public function update(Request $request, $id)
-    {
-        $data = Data::findOrFail($id); 
-    
- 
-        $validated = $request->validate([
-            'title' => 'required|string|max:20',
-            'category' => 'required|in:カテゴリ１,カテゴリ２,カテゴリ３',
-            'content' => 'required|string|max:200',
-        ], [
-            'title.required' => 'タイトルを入力してください',
-            'title.max' => 'タイトルは20文字以内で入力してください。',
-            'category.required' => 'カテゴリは不明な値です',
-            'content.required' => '本文を入力してください',
-            'content.max' => '本文は200文字以内で入力してください。',
-        ]);
-    
-        $data->title = $validated['title'];
-        $data->category = $validated['category'];
-        $data->content = $validated['content'];
-    
-     
-    
-        $data->save(); 
-    
        
-        return redirect()->route('dashboard.index')->with('success', 'データが更新されました');
+        Data::create($request->validated());
+    
+        return redirect()->route('dashboard.index')->with('success');
     }
+    
+    public function update(UpdateDataRequest $request, $id)
+    {
+        $data = Data::findOrFail($id);
+        $data->update($request->validated());
+    
+        return redirect()->route('dashboard.index')->with('success');
+    }
+    
     
 
     public function destroy($id)
@@ -88,7 +58,7 @@ class DashboardController extends Controller
     
         $data->delete(); 
     
-        return redirect()->route('dashboard.index')->with('success', 'データが削除されました');
+        return redirect()->route('dashboard.index')->with('success');
     }
         
     public function show($id)
@@ -113,7 +83,7 @@ class DashboardController extends Controller
     
         $callback = function () use ($dataEntries) {
             $handle = fopen('php://output', 'w');
-            fputcsv($handle, ['タイトル', 'カテゴリ', '本文']); // CSVのヘッダ行
+            fputcsv($handle, ['タイトル', 'カテゴリ', '本文']); 
     
             foreach ($dataEntries as $entry) {
                 fputcsv($handle, [

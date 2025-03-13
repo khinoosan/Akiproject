@@ -25,12 +25,6 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-
-
-    
-
-
-
 //only 　for admin
 Route::middleware(['auth:admin'])->group(function () {
 
@@ -42,9 +36,6 @@ Route::middleware(['auth:admin'])->group(function () {
 });
 
 
-
-
-
 //both admin and user 
 
 Route::middleware('auth:admin|user')->group(function () {
@@ -53,7 +44,7 @@ Route::middleware('auth:admin|user')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/dashboard/export-csv', [DashboardController::class, 'exportCSV'])->name('dashboard.exportCSV'); // ユーザー用CSVエクスポート
     Route::get('/register', [DashboardController::class, 'create'])->name('register');
-    Route::post('/register', [DashboardController::class, 'store'])->name('register.store');
+
     Route::resource('dashboard', DashboardController::class);
 
 

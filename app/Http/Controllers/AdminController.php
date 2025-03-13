@@ -35,7 +35,7 @@ class AdminController extends Controller
 
         
         return back()->withErrors([
-            'email' => '認証に失敗しました。メールアドレスまたはパスワードが間違っています。',
+            'email' => '登録されているログイン情報を入力してください',
         ]);
     }
 
